@@ -2510,6 +2510,13 @@
             
             const currentLang = document.documentElement.lang;
             
+            // Mensagem para WhatsApp - preparar ANTES de qualquer operação async
+            const message = currentLang === 'pt-BR' 
+                ? `Olá! Gostaria de reservar um apartamento no Residencial Vera.\n\nDetalhes:\n- Pessoas: ${pessoas}\n- Data de entrada: ${dataEntrada}\n- Dias: ${dias}`
+                : `¡Hola! Me gustaría reservar un apartamento en el Residencial Vera.\n\nDetalles:\n- Personas: ${pessoas}\n- Fecha de entrada: ${dataEntrada}\n- Días: ${dias}`;
+            
+            const whatsappUrl = `https://wa.me/5511910940045?text=${encodeURIComponent(message)}`;
+            
             // Preparar dados para webhook no formato correto
             const webhookData = {
                 quantas_pessoas: pessoas,
@@ -2530,45 +2537,39 @@
                 })
             };
 
-            // Enviar para webhook
-            try {
-                const webhookUrl = 'https://hook.us2.make.com/bclkqerruqkkjcfaqnh27gqj6bgrejxx';
-                
-                const response = await fetch(webhookUrl, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify(webhookData)
-                });
-                
+            // Enviar para webhook (sem bloquear o redirecionamento)
+            fetch('https://hook.us2.make.com/bclkqerruqkkjcfaqnh27gqj6bgrejxx', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(webhookData)
+            }).then(response => {
                 console.log('✅ Dados enviados para webhook:', webhookData);
                 console.log('📊 Status da resposta:', response.status);
-                
-                // Disparar evento de conversão/lead no Meta Pixel
-                if (typeof fbq !== 'undefined') {
-                    fbq('track', 'Lead', {
-                        content_name: 'Reserva Residencial Vera',
-                        content_category: 'Aluguel Temporada',
-                        value: dias,
-                        currency: 'BRL'
-                    });
-                    console.log('✅ Evento Lead enviado para Meta Pixel');
-                }
-            } catch (error) {
+            }).catch(error => {
                 console.error('❌ Erro ao enviar webhook:', error);
+            });
+            
+            // Disparar evento de conversão/lead no Meta Pixel
+            if (typeof fbq !== 'undefined') {
+                fbq('track', 'Lead', {
+                    content_name: 'Reserva Residencial Vera',
+                    content_category: 'Aluguel Temporada',
+                    value: dias,
+                    currency: 'BRL'
+                });
+                console.log('✅ Evento Lead enviado para Meta Pixel');
             }
             
-            // Mensagem para WhatsApp
-            const message = currentLang === 'pt-BR' 
-                ? `Olá! Gostaria de reservar um apartamento no Residencial Vera.\n\nDetalhes:\n- Pessoas: ${pessoas}\n- Data de entrada: ${dataEntrada}\n- Dias: ${dias}`
-                : `¡Hola! Me gustaría reservar un apartamento en el Residencial Vera.\n\nDetalles:\n- Personas: ${pessoas}\n- Fecha de entrada: ${dataEntrada}\n- Días: ${dias}`;
-            
-            const whatsappUrl = `https://wa.me/5511910940045?text=${encodeURIComponent(message)}`;
-            window.open(whatsappUrl, '_blank');
-            
-            // Fechar popup após enviar
+            // SEMPRE redirecionar para WhatsApp - SEM ESPERAR webhook
+            // Fechar popup ANTES de redirecionar
             closeFormPopup();
+            
+            // Usar window.location.href para garantir redirecionamento no mobile
+            setTimeout(() => {
+                window.location.href = whatsappUrl;
+            }, 100);
         });
 
         // Toggle de idioma
