@@ -672,6 +672,110 @@
             margin-bottom: 10px;
         }
 
+        /* Seção Ar-Condicionado */
+        .air-conditioning-section {
+            padding: 80px 20px;
+            background: linear-gradient(135deg, #e0f2fe 0%, #f0f9ff 100%);
+        }
+
+        .air-conditioning-section h2 {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            color: #0284c7;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            font-size: 1.1rem;
+            max-width: 800px;
+            margin: 0 auto 50px;
+            color: #64748b;
+            line-height: 1.8;
+        }
+
+        .ac-features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            max-width: 1000px;
+            margin: 0 auto 60px;
+        }
+
+        .ac-feature {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(2, 132, 199, 0.1);
+            transition: transform 0.3s;
+        }
+
+        .ac-feature:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(2, 132, 199, 0.2);
+        }
+
+        .ac-icon {
+            font-size: 3.5rem;
+            margin-bottom: 15px;
+        }
+
+        .ac-feature h3 {
+            color: #0284c7;
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+        }
+
+        .ac-feature p {
+            color: #64748b;
+            line-height: 1.6;
+        }
+
+        .ac-gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .ac-gallery-item {
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
+            transition: transform 0.3s;
+        }
+
+        .ac-gallery-item:hover {
+            transform: scale(1.05);
+        }
+
+        .ac-gallery-item img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            display: block;
+        }
+
+        @media (max-width: 768px) {
+            .air-conditioning-section h2 {
+                font-size: 1.8rem;
+            }
+
+            .ac-features-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .ac-gallery {
+                grid-template-columns: 1fr;
+            }
+
+            .ac-gallery-item img {
+                height: 200px;
+            }
+        }
+
         .apartments {
             padding: 60px 20px;
             background: white;
@@ -1628,6 +1732,15 @@
                         Ambiente calmo, sem barulho, com montanhas ao redor
                     </p>
                 </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">❄️</div>
+                    <h3 data-pt="Ar-Condicionado" data-es="Aire Acondicionado">Ar-Condicionado</h3>
+                    <p data-pt="Todos os quartos equipados com ar-condicionado para seu conforto" 
+                       data-es="Todos los dormitorios equipados con aire acondicionado para su comodidad">
+                        Todos os quartos equipados com ar-condicionado para seu conforto
+                    </p>
+                </div>
             </div>
         </div>
         
@@ -1635,6 +1748,57 @@
             <button class="cta-btn" onclick="openFormPopup()" data-pt="📱 Falar com a Dona no WhatsApp!" data-es="📱 ¡Hablar con la Dueña en WhatsApp!">
                 📱 Falar com a Dona no WhatsApp!
             </button>
+        </div>
+    </section>
+
+    <!-- SEÇÃO AR-CONDICIONADO -->
+    <section class="air-conditioning-section">
+        <div class="container">
+            <h2 data-pt="❄️ Conforto Térmico em Todos os Quartos" data-es="❄️ Confort Térmico en Todos los Dormitorios">
+                ❄️ Conforto Térmico em Todos os Quartos
+            </h2>
+            <p class="section-subtitle" data-pt="Todos os quartos equipados com ar-condicionado para garantir seu descanso perfeito, seja em dias quentes de verão ou noites frescas de inverno" 
+               data-es="Todos los dormitorios equipados con aire acondicionado para garantizar su descanso perfecto, ya sea en días calurosos de verano o noches frescas de invierno">
+                Todos os quartos equipados com ar-condicionado para garantir seu descanso perfeito, seja em dias quentes de verão ou noites frescas de inverno
+            </p>
+            
+            <div class="ac-features-grid">
+                <div class="ac-feature">
+                    <div class="ac-icon">🌡️</div>
+                    <h3 data-pt="Controle de Temperatura" data-es="Control de Temperatura">Controle de Temperatura</h3>
+                    <p data-pt="Ajuste a temperatura ideal para seu conforto" data-es="Ajuste la temperatura ideal para su comodidad">
+                        Ajuste a temperatura ideal para seu conforto
+                    </p>
+                </div>
+                
+                <div class="ac-feature">
+                    <div class="ac-icon">😴</div>
+                    <h3 data-pt="Noites Tranquilas" data-es="Noches Tranquilas">Noites Tranquilas</h3>
+                    <p data-pt="Durma com conforto em qualquer estação" data-es="Duerma con comodidad en cualquier estación">
+                        Durma com conforto em qualquer estação
+                    </p>
+                </div>
+                
+                <div class="ac-feature">
+                    <div class="ac-icon">✨</div>
+                    <h3 data-pt="Equipamentos Modernos" data-es="Equipos Modernos">Equipamentos Modernos</h3>
+                    <p data-pt="Ar-condicionado de qualidade em todos os quartos" data-es="Aire acondicionado de calidad en todos los dormitorios">
+                        Ar-condicionado de qualidade em todos os quartos
+                    </p>
+                </div>
+            </div>
+
+            <div class="ac-gallery">
+                <div class="ac-gallery-item">
+                    <img src="ar condicionado/ar-condicionado-familia-com-conforto-termico.jpg" alt="Família relaxando com conforto térmico" loading="lazy">
+                </div>
+                <div class="ac-gallery-item">
+                    <img src="ar condicionado/climatizador_1737795608313.jpg" alt="Ar-condicionado moderno nos quartos" loading="lazy">
+                </div>
+                <div class="ac-gallery-item">
+                    <img src="ar condicionado/funcoes-do-ar-condicionado.jpg" alt="Funções e controle do ar-condicionado" loading="lazy">
+                </div>
+            </div>
         </div>
     </section>
 
@@ -1701,9 +1865,9 @@
                     Apartamento 104 - 3 Quartos
                 </h3>
                 <div class="apartment-info">
-                    <p data-pt="✓ 3 quartos espaçosos • ✓ Sacada com vista • ✓ Churrasqueira • ✓ Ideal para famílias • ✓ Conforto e espaço para até 6+ pessoas" 
-                       data-es="✓ 3 dormitorios espaciosos • ✓ Balcón con vista • ✓ Parrilla • ✓ Ideal para familias • ✓ Comodidad y espacio para hasta 6+ personas">
-                        ✓ 3 quartos espaçosos • ✓ Sacada com vista • ✓ Churrasqueira • ✓ Ideal para famílias • ✓ Conforto e espaço para até 6+ pessoas
+                    <p data-pt="✓ 3 quartos espaçosos com ar-condicionado • ✓ Sacada com vista • ✓ Churrasqueira • ✓ Ideal para famílias • ✓ Conforto e espaço para até 6+ pessoas" 
+                       data-es="✓ 3 dormitorios espaciosos con aire acondicionado • ✓ Balcón con vista • ✓ Parrilla • ✓ Ideal para familias • ✓ Comodidad y espacio para hasta 6+ personas">
+                        ✓ 3 quartos espaçosos com ar-condicionado • ✓ Sacada com vista • ✓ Churrasqueira • ✓ Ideal para famílias • ✓ Conforto e espaço para até 6+ pessoas
                     </p>
                 </div>
                 <div class="gallery-grid" id="gallery-104">
@@ -1714,7 +1878,7 @@
                         <img src="residencial vera 104 3 quartos  - sacada - churrasqueira/IMG_1332.png" alt="Sala de estar Apartamento 104" width="300" height="200" loading="lazy">
                     </div>
                     <div class="gallery-item" onclick="openModal('104', 2)">
-                        <video src="residencial vera 104 3 quartos  - sacada - churrasqueira/IMG_1332.MP4" muted preload="none"></video>
+                        <video src="residencial vera 104 3 quartos  - sacada - churrasqueira/IMG_1332.MP4" muted preload="metadata" poster="residencial vera 104 3 quartos  - sacada - churrasqueira/IMG_1332.png"></video>
                         <div class="video-overlay">▶</div>
                     </div>
                     <div class="gallery-item" onclick="openModal('104', 3)">
@@ -1733,7 +1897,7 @@
                         <img src="residencial vera 104 3 quartos  - sacada - churrasqueira/IMG_8571.png" alt="Banheiro Apartamento 104" width="300" height="200" loading="lazy">
                     </div>
                     <div class="gallery-item" onclick="openModal('104', 8)">
-                        <video src="residencial vera 104 3 quartos  - sacada - churrasqueira/IMG_8614.MOV" muted preload="none"></video>
+                        <video src="residencial vera 104 3 quartos  - sacada - churrasqueira/IMG_8614.MOV" muted preload="metadata" poster="residencial vera 104 3 quartos  - sacada - churrasqueira/IMG_8571.png"></video>
                         <div class="video-overlay">▶</div>
                     </div>
                 </div>
@@ -1745,9 +1909,9 @@
                     Apartamento 203 - 2 Quartos
                 </h3>
                 <div class="apartment-info">
-                    <p data-pt="✓ 1 quartos confortáveis • ✓ Sacada com vista • ✓ Churrasqueira • ✓ Perfeito para casais ou famílias pequenas • ✓ Ambiente aconchegante" 
-                       data-es="✓ 1 dormitorios cómodos • ✓ Balcón con vista • ✓ Parrilla • ✓ Perfecto para parejas o familias pequeñas • ✓ Ambiente acogedor">
-                        ✓ 1 quarto confortável • ✓ Sacada com vista • ✓ Churrasqueira • ✓ Perfeito para casais ou famílias pequenas • ✓ Ambiente aconchegante
+                    <p data-pt="✓ 2 quartos confortáveis com ar-condicionado • ✓ Sacada com vista • ✓ Churrasqueira • ✓ Perfeito para casais ou famílias pequenas • ✓ Ambiente aconchegante" 
+                       data-es="✓ 2 dormitorios cómodos con aire acondicionado • ✓ Balcón con vista • ✓ Parrilla • ✓ Perfecto para parejas o familias pequeñas • ✓ Ambiente acogedor">
+                        ✓ 2 quartos confortáveis com ar-condicionado • ✓ Sacada com vista • ✓ Churrasqueira • ✓ Perfeito para casais ou famílias pequenas • ✓ Ambiente aconchegante
                     </p>
                 </div>
                 <div class="gallery-grid" id="gallery-203">
@@ -1787,9 +1951,9 @@
                     Apartamento 201 - 2 Quartos
                 </h3>
                 <div class="apartment-info">
-                    <p data-pt="✓ 2 quartos aconchegantes • ✓ Sacada • ✓ Ambiente tranquilo • ✓ Ótimo custo-benefício • ✓ Ideal para casais" 
-                       data-es="✓ 2 dormitorios acogedores • ✓ Balcón • ✓ Ambiente tranquilo • ✓ Excelente relación calidad-precio • ✓ Ideal para parejas">
-                        ✓ 2 quartos aconchegantes • ✓ Sacada • ✓ Ambiente tranquilo • ✓ Ótimo custo-benefício • ✓ Ideal para casais
+                    <p data-pt="✓ 2 quartos aconchegantes com ar-condicionado • ✓ Sacada • ✓ Ambiente tranquilo • ✓ Ótimo custo-benefício • ✓ Ideal para casais" 
+                       data-es="✓ 2 dormitorios acogedores con aire acondicionado • ✓ Balcón • ✓ Ambiente tranquilo • ✓ Excelente relación calidad-precio • ✓ Ideal para parejas">
+                        ✓ 2 quartos aconchegantes com ar-condicionado • ✓ Sacada • ✓ Ambiente tranquilo • ✓ Ótimo custo-benefício • ✓ Ideal para casais
                     </p>
                 </div>
                 <div class="gallery-grid" id="gallery-201">
@@ -1800,14 +1964,14 @@
                         <img src="201 2 quartos  - sacada/IMG_1329.png" alt="Sala de estar Apartamento 201" width="300" height="200" loading="lazy">
                     </div>
                     <div class="gallery-item" onclick="openModal('201', 2)">
-                        <video src="201 2 quartos  - sacada/IMG_1329.MP4" muted preload="none"></video>
+                        <video src="201 2 quartos  - sacada/IMG_1329.MP4" muted preload="metadata" poster="201 2 quartos  - sacada/IMG_1329.png"></video>
                         <div class="video-overlay">▶</div>
                     </div>
                     <div class="gallery-item" onclick="openModal('201', 3)">
                         <img src="201 2 quartos  - sacada/IMG_1331.png" alt="Cozinha Apartamento 201" width="300" height="200" loading="lazy">
                     </div>
                     <div class="gallery-item" onclick="openModal('201', 4)">
-                        <video src="201 2 quartos  - sacada/IMG_1331.MP4" muted preload="none"></video>
+                        <video src="201 2 quartos  - sacada/IMG_1331.MP4" muted preload="metadata" poster="201 2 quartos  - sacada/IMG_1331.png"></video>
                         <div class="video-overlay">▶</div>
                     </div>
                     <div class="gallery-item" onclick="openModal('201', 5)">
@@ -1817,11 +1981,11 @@
                         <img src="201 2 quartos  - sacada/IMG_5714.png" alt="Segundo quarto Apartamento 201" width="300" height="200" loading="lazy">
                     </div>
                     <div class="gallery-item" onclick="openModal('201', 7)">
-                        <video src="201 2 quartos  - sacada/IMG_5720.MP4" muted preload="none"></video>
+                        <video src="201 2 quartos  - sacada/IMG_5720.MP4" muted preload="metadata" poster="201 2 quartos  - sacada/IMG_5714.png"></video>
                         <div class="video-overlay">▶</div>
                     </div>
                     <div class="gallery-item" onclick="openModal('201', 8)">
-                        <video src="201 2 quartos  - sacada/IMG_8627.MOV" muted preload="none"></video>
+                        <video src="201 2 quartos  - sacada/IMG_8627.MOV" muted preload="metadata" poster="201 2 quartos  - sacada/IMG_5713.png"></video>
                         <div class="video-overlay">▶</div>
                     </div>
                 </div>
