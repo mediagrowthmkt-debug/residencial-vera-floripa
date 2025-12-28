@@ -1,0 +1,29 @@
+# Arquivos do sistema
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Arquivos temporários
+*.tmp
+*.bak
+*.swp
+*~
+
+# Logs
+*.log
+npm-debug.log*
+
+# Ambientes e configurações locais
+.env
+.env.local
+.vscode/
+.idea/
+
+# Arquivos grandes (videos/imagens originais)
+*.MOV
+*.mov
+*.mp4
+*.MP4
+
+# Node modules (caso adicione no futuro)
+node_modules/
