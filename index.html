@@ -579,6 +579,47 @@
             transform: scale(1.05);
         }
 
+        /* Botões de crianças */
+        .crianca-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+        }
+
+        .crianca-btn.selected {
+            transform: scale(1.05);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+        }
+
+        /* Botões de quantidade de crianças */
+        .qtd-crianca-btn {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            border: 2px solid #d1d5db;
+            color: #374151;
+            padding: 20px;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+
+        .qtd-crianca-btn:hover {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            color: white;
+            border-color: #10b981;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(16, 185, 129, 0.4);
+        }
+
+        .qtd-crianca-btn.selected {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            color: white;
+            border-color: #10b981;
+            box-shadow: 0 6px 15px rgba(16, 185, 129, 0.4);
+            transform: scale(1.05);
+        }
+
         .dias-btn:active {
             transform: scale(0.98);
         }
@@ -1543,6 +1584,7 @@
                 <div class="progress-step active" id="step-indicator-1">1</div>
                 <div class="progress-step" id="step-indicator-2">2</div>
                 <div class="progress-step" id="step-indicator-3">3</div>
+                <div class="progress-step" id="step-indicator-4">4</div>
             </div>
 
             <!-- FORMULÁRIO MULTI-STEP -->
@@ -1657,6 +1699,48 @@
                     </div>
                     <div class="form-buttons">
                         <button type="button" class="btn-prev" onclick="prevStep(3)" data-pt="← Voltar" data-es="← Volver">← Voltar</button>
+                        <button type="button" class="btn-next" onclick="nextStep(3)" data-pt="Próximo →" data-es="Siguiente →">Próximo →</button>
+                    </div>
+                </div>
+
+                <!-- Step 4: Crianças -->
+                <div class="form-step" id="step-4">
+                    <h3 data-pt="👶 Possui crianças?" data-es="👶 ¿Tiene niños?">👶 Possui crianças?</h3>
+                    <input type="hidden" id="temCriancas" required>
+                    <input type="hidden" id="quantasCriancas">
+                    
+                    <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; margin: 30px 0;">
+                        <button type="button" class="crianca-btn" onclick="selectTemCriancas('sim')" data-value="sim" style="background: linear-gradient(135deg, #10b981 0%, #059669 100%); color: white; padding: 30px; border-radius: 15px; border: none; font-size: 1.1rem; cursor: pointer; transition: all 0.3s;">
+                            <span style="font-size: 3rem;">✅</span><br>
+                            <span data-pt="Sim" data-es="Sí">Sim</span>
+                        </button>
+                        <button type="button" class="crianca-btn" onclick="selectTemCriancas('nao')" data-value="nao" style="background: linear-gradient(135deg, #6b7280 0%, #4b5563 100%); color: white; padding: 30px; border-radius: 15px; border: none; font-size: 1.1rem; cursor: pointer; transition: all 0.3s;">
+                            <span style="font-size: 3rem;">❌</span><br>
+                            <span data-pt="Não" data-es="No">Não</span>
+                        </button>
+                    </div>
+
+                    <!-- Contador de crianças (aparece quando seleciona SIM) -->
+                    <div id="quantasCriancasDiv" style="display: none; margin-top: 20px;">
+                        <h4 data-pt="Quantas crianças?" data-es="¿Cuántos niños?" style="text-align: center; margin-bottom: 15px; color: #374151;">Quantas crianças?</h4>
+                        <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px;">
+                            <button type="button" class="qtd-crianca-btn" onclick="selectQuantasCriancas('1')" data-value="1">
+                                <span style="font-size: 1.5rem;">1</span>
+                            </button>
+                            <button type="button" class="qtd-crianca-btn" onclick="selectQuantasCriancas('2')" data-value="2">
+                                <span style="font-size: 1.5rem;">2</span>
+                            </button>
+                            <button type="button" class="qtd-crianca-btn" onclick="selectQuantasCriancas('3')" data-value="3">
+                                <span style="font-size: 1.5rem;">3</span>
+                            </button>
+                            <button type="button" class="qtd-crianca-btn" onclick="selectQuantasCriancas('4+')" data-value="4+">
+                                <span style="font-size: 1.5rem;">4+</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="form-buttons" style="margin-top: 30px;">
+                        <button type="button" class="btn-prev" onclick="prevStep(4)" data-pt="← Voltar" data-es="← Volver">← Voltar</button>
                         <button type="submit" class="btn-next" data-pt="📱 Enviar via WhatsApp" data-es="📱 Enviar por WhatsApp">📱 Enviar via WhatsApp</button>
                     </div>
                 </div>
@@ -2429,7 +2513,57 @@
             // Atualizar campo hidden
             document.getElementById('dias').value = valor;
             
-            // Enviar formulário automaticamente após 300ms (última step)
+            // Não enviar mais automaticamente - ir para próxima step (crianças)
+            setTimeout(() => {
+                nextStep(3);
+            }, 300);
+        }
+
+        // Funções de seleção de crianças
+        function selectTemCriancas(valor) {
+            // Remover seleção anterior
+            document.querySelectorAll('.crianca-btn').forEach(btn => {
+                btn.classList.remove('selected');
+            });
+            
+            // Adicionar seleção ao botão clicado
+            event.target.closest('.crianca-btn').classList.add('selected');
+            
+            // Atualizar campo hidden
+            document.getElementById('temCriancas').value = valor;
+            
+            // Mostrar/ocultar contador de crianças
+            const quantasCriancasDiv = document.getElementById('quantasCriancasDiv');
+            if (valor === 'sim') {
+                quantasCriancasDiv.style.display = 'block';
+                // Resetar seleção de quantidade
+                document.getElementById('quantasCriancas').value = '';
+                document.querySelectorAll('.qtd-crianca-btn').forEach(btn => {
+                    btn.classList.remove('selected');
+                });
+            } else {
+                quantasCriancasDiv.style.display = 'none';
+                document.getElementById('quantasCriancas').value = '0';
+                // Enviar formulário automaticamente se não tem crianças
+                setTimeout(() => {
+                    document.getElementById('reservationForm').dispatchEvent(new Event('submit'));
+                }, 500);
+            }
+        }
+
+        function selectQuantasCriancas(quantidade) {
+            // Remover seleção anterior
+            document.querySelectorAll('.qtd-crianca-btn').forEach(btn => {
+                btn.classList.remove('selected');
+            });
+            
+            // Adicionar seleção ao botão clicado
+            event.target.closest('.qtd-crianca-btn').classList.add('selected');
+            
+            // Atualizar campo hidden
+            document.getElementById('quantasCriancas').value = quantidade;
+            
+            // Enviar formulário automaticamente após 300ms
             setTimeout(() => {
                 document.getElementById('reservationForm').dispatchEvent(new Event('submit'));
             }, 300);
@@ -2454,6 +2588,10 @@
             currentStep = 1;
             showStep(1);
             document.getElementById('reservationForm').reset();
+            document.getElementById('quantasCriancasDiv').style.display = 'none';
+            document.querySelectorAll('.pessoa-btn, .dias-btn, .crianca-btn, .qtd-crianca-btn').forEach(btn => {
+                btn.classList.remove('selected');
+            });
         }
 
         function showStep(step) {
@@ -2544,6 +2682,8 @@
             const pessoas = document.getElementById('pessoas').value;
             const dataEntrada = document.getElementById('dataEntrada').value;
             const dias = document.getElementById('dias').value;
+            const temCriancas = document.getElementById('temCriancas').value;
+            const quantasCriancas = document.getElementById('quantasCriancas').value || '0';
 
             if (!dias) {
                 const currentLang = document.documentElement.lang;
@@ -2554,12 +2694,33 @@
                 return;
             }
             
+            if (!temCriancas) {
+                const currentLang = document.documentElement.lang;
+                const message = currentLang === 'pt-BR' 
+                    ? 'Por favor, informe se possui crianças.'
+                    : 'Por favor, informe si tiene niños.';
+                alert(message);
+                return;
+            }
+            
             const currentLang = document.documentElement.lang;
+            
+            // Preparar texto sobre crianças
+            let criancasTexto = '';
+            if (temCriancas === 'sim') {
+                criancasTexto = currentLang === 'pt-BR' 
+                    ? `\n- Crianças: ${quantasCriancas}`
+                    : `\n- Niños: ${quantasCriancas}`;
+            } else {
+                criancasTexto = currentLang === 'pt-BR' 
+                    ? '\n- Crianças: Não'
+                    : '\n- Niños: No';
+            }
             
             // Mensagem para WhatsApp - preparar ANTES de qualquer operação async
             const message = currentLang === 'pt-BR' 
-                ? `Olá! Gostaria de reservar um apartamento no Residencial Vera.\n\nDetalhes:\n- Pessoas: ${pessoas}\n- Data de entrada: ${dataEntrada}\n- Dias: ${dias}`
-                : `¡Hola! Me gustaría reservar un apartamento en el Residencial Vera.\n\nDetalles:\n- Personas: ${pessoas}\n- Fecha de entrada: ${dataEntrada}\n- Días: ${dias}`;
+                ? `Olá! Gostaria de reservar um apartamento no Residencial Vera.\n\nDetalhes:\n- Pessoas: ${pessoas}\n- Data de entrada: ${dataEntrada}\n- Dias: ${dias}${criancasTexto}`
+                : `¡Hola! Me gustaría reservar un apartamento en el Residencial Vera.\n\nDetalles:\n- Personas: ${pessoas}\n- Fecha de entrada: ${dataEntrada}\n- Días: ${dias}${criancasTexto}`;
             
             const whatsappUrl = `https://wa.me/5511910940045?text=${encodeURIComponent(message)}`;
             
@@ -2568,6 +2729,8 @@
                 quantas_pessoas: pessoas,
                 data_entrada: dataEntrada,
                 quantos_dias: dias,
+                tem_criancas: temCriancas,
+                quantas_criancas: quantasCriancas,
                 idioma: currentLang === 'pt-BR' ? 'Português' : 'Español',
                 plataforma: "META",
                 fonte: "Residencial Vera - Landing Page",
