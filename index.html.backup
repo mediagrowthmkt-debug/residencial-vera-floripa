@@ -1475,22 +1475,13 @@
     </header>
 
     <!-- Seletor de Idioma -->
-    <div class="language-toggle">
-        <button class="language-btn active" onclick="setLanguage('pt-BR')" id="btn-pt">
-            <span>🇧🇷</span>
-            <span>PT</span>
-        </button>
-        <span class="language-separator">|</span>
-        <button class="language-btn" onclick="setLanguage('es')" id="btn-es">
-            <span>🇪🇸</span>
-            <span>ES</span>
-        </button>
-        <span class="language-separator">|</span>
-        <button class="language-btn" onclick="setLanguage('en')" id="btn-en">
-            <span>🇺🇸</span>
-            <span>EN</span>
-        </button>
-    </div>
+    <div class="language-toggle" onclick="toggleLanguage()">
+        <span id="lang-flag">🇧🇷</span> 
+        <span id="lang-text" style="font-weight: 700;">PT</span> 
+        <span style="margin: 0 5px; opacity: 0.4;">|</span> 
+        <span style="opacity: 0.5;" id="lang-flag-es">🇦🇷 ES</span>
+        <span style="margin: 0 5px; opacity: 0.4;">|</span> 
+        <span style="opacity: 0.5;" id="lang-flag-en">�� EN</span>
     </div>
 
     <!-- HERO SECTION -->
@@ -3010,66 +3001,7 @@
             }, 100);
         });
 
-        // Função para trocar idioma
-        function setLanguage(lang) {
-            const html = document.documentElement;
-            html.lang = lang;
-            
-            // Remover classe active de todos os botões
-            document.querySelectorAll('.language-btn').forEach(btn => {
-                btn.classList.remove('active');
-            });
-            
-            // Adicionar classe active no botão selecionado
-            if (lang === 'pt-BR') {
-                document.getElementById('btn-pt').classList.add('active');
-            } else if (lang === 'es') {
-                document.getElementById('btn-es').classList.add('active');
-            } else if (lang === 'en') {
-                document.getElementById('btn-en').classList.add('active');
-            }
-            
-            // Atualizar todos os elementos com data-pt, data-es e data-en
-            document.querySelectorAll('[data-pt]').forEach(element => {
-                if (lang === 'pt-BR') {
-                    element.textContent = element.getAttribute('data-pt');
-                } else if (lang === 'es') {
-                    element.textContent = element.getAttribute('data-es');
-                } else if (lang === 'en') {
-                    element.textContent = element.getAttribute('data-en');
-                }
-            });
-
-            // Atualizar placeholders
-            document.querySelectorAll('[data-pt-placeholder]').forEach(element => {
-                if (lang === 'pt-BR') {
-                    element.placeholder = element.getAttribute('data-pt-placeholder');
-                } else if (lang === 'es') {
-                    element.placeholder = element.getAttribute('data-es-placeholder');
-                } else if (lang === 'en') {
-                    element.placeholder = element.getAttribute('data-en-placeholder');
-                }
-            });
-
-            // Atualizar opções do select
-            const simOption = document.querySelector('option[value="sim"]');
-            const naoOption = document.querySelector('option[value="nao"]');
-            
-            if (simOption && naoOption) {
-                if (lang === 'pt-BR') {
-                    simOption.textContent = 'Sim';
-                    naoOption.textContent = 'Não';
-                } else if (lang === 'es') {
-                    simOption.textContent = 'Sí';
-                    naoOption.textContent = 'No';
-                } else {
-                    simOption.textContent = 'Yes';
-                    naoOption.textContent = 'No';
-                }
-            }
-        }
-
-        // Toggle de idioma (mantido para compatibilidade)
+        // Toggle de idioma
         function toggleLanguage() {
             const html = document.documentElement;
             const currentLang = html.lang;
@@ -3084,7 +3016,55 @@
                 newLang = 'pt-BR';
             }
             
-            setLanguage(newLang);
+            html.lang = newLang;
+            
+            // Atualizar todos os elementos com data-pt, data-es e data-en
+            document.querySelectorAll('[data-pt]').forEach(element => {
+                if (newLang === 'pt-BR') {
+                    element.textContent = element.getAttribute('data-pt');
+                } else if (newLang === 'es') {
+                    element.textContent = element.getAttribute('data-es');
+                } else if (newLang === 'en') {
+                    element.textContent = element.getAttribute('data-en');
+                }
+            });
+
+            // Atualizar placeholders
+            document.querySelectorAll('[data-pt-placeholder]').forEach(element => {
+                if (newLang === 'pt-BR') {
+                    element.placeholder = element.getAttribute('data-pt-placeholder');
+                } else if (newLang === 'es') {
+                    element.placeholder = element.getAttribute('data-es-placeholder');
+                } else if (newLang === 'en') {
+                    element.placeholder = element.getAttribute('data-en-placeholder');
+                }
+            });
+
+            // Atualizar opções do select
+            const simOption = document.querySelector('option[value="sim"]');
+            const naoOption = document.querySelector('option[value="nao"]');
+            
+            if (newLang === 'pt-BR') {
+                simOption.textContent = 'Sim';
+                naoOption.textContent = 'Não';
+            } else if (newLang === 'es') {
+                simOption.textContent = 'Sí';
+                naoOption.textContent = 'No';
+            } else {
+                simOption.textContent = 'Yes';
+                naoOption.textContent = 'No';
+            }
+            
+            // Atualizar toggle
+            const toggle = document.querySelector('.language-toggle');
+            
+            if (newLang === 'pt-BR') {
+                toggle.innerHTML = '<span id="lang-flag">🇧🇷</span> <span id="lang-text" style="font-weight: 700;">PT</span> <span style="margin: 0 5px; opacity: 0.4;">|</span> <span style="opacity: 0.5;" id="lang-flag-es">🇦🇷 ES</span> <span style="margin: 0 5px; opacity: 0.4;">|</span> <span style="opacity: 0.5;" id="lang-flag-en">�🇸 EN</span>';
+            } else if (newLang === 'es') {
+                toggle.innerHTML = '<span style="opacity: 0.5;" id="lang-flag-pt">🇧🇷 PT</span> <span style="margin: 0 5px; opacity: 0.4;">|</span> <span id="lang-flag">�🇦🇷</span> <span id="lang-text" style="font-weight: 700;">ES</span> <span style="margin: 0 5px; opacity: 0.4;">|</span> <span style="opacity: 0.5;" id="lang-flag-en">🇺🇸 EN</span>';
+            } else {
+                toggle.innerHTML = '<span style="opacity: 0.5;" id="lang-flag-pt">🇧🇷 PT</span> <span style="margin: 0 5px; opacity: 0.4;">|</span> <span style="opacity: 0.5;" id="lang-flag-es">🇦🇷 ES</span> <span style="margin: 0 5px; opacity: 0.4;">|</span> <span id="lang-flag">🇺🇸</span> <span id="lang-text" style="font-weight: 700;">EN</span>';
+            }
         }
 
         // Definir data mínima como hoje e adicionar event listeners
